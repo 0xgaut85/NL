@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 const GearsBackground = dynamic(() => import('@/components/GearsBackground'), { ssr: false });
 
 export default function ModelPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <motion.header 
@@ -46,15 +49,56 @@ export default function ModelPage() {
               </motion.a>
             ))}
           </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
           
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
+            className="hidden md:block bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
           >
             Request Beta Access
           </motion.button>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-white/10 mt-4 pt-4"
+          >
+            <nav className="flex flex-col gap-4 font-mono text-sm text-white">
+              {["About", "Model", "Pricing", "Docs"].map((item) => (
+                <a
+                  key={item}
+                  href={item === "Pricing" ? "/pricing" : item === "Model" ? "/model" : item === "Docs" ? "/docs" : `/#${item.toLowerCase()}`}
+                  className={`hover:text-[#7fff00] transition-colors bracket-text ${item === "Model" ? "text-[#7fff00]" : ""}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
+              <button className="bg-white text-black px-4 py-2 font-mono text-xs font-bold hover:bg-[#7fff00] transition-colors w-full text-left">
+                Request Beta Access
+              </button>
+            </nav>
+          </motion.div>
+        )}
       </motion.header>
 
       <main className="flex-1">
