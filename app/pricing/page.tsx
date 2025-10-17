@@ -228,7 +228,7 @@ export default function PricingPage() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="text-lg md:text-xl text-black/60 max-w-3xl mx-auto"
               >
-                Self-hosting gives you control, privacy, and freedom that cloud solutions can't match
+                Self-hosting gives you control, privacy, and freedom that cloud solutions can&apos;t match
               </motion.p>
             </motion.div>
 

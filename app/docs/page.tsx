@@ -1232,11 +1232,11 @@ export default function DocsPage() {
                   <p className="text-black/70 mb-4">Each chunk is a JSON object prefixed with <code className="bg-black/10 px-1 rounded">data:</code></p>
                   <div className="bg-black p-4 rounded font-mono text-sm text-[#7fff00] overflow-x-auto">
                     <code>
-                      data: {"{"}""id":"cmpl-123","choices":[{"{"}""text":"Once","index":0{"}"}]{"}"}}<br/>
+                      data: {"{\"id\":\"cmpl-123\",\"choices\":[{\"text\":\"Once\",\"index\":0}]}"}<br/>
                       <br/>
-                      data: {"{"}""id":"cmpl-123","choices":[{"{"}""text":" upon","index":0{"}"}]{"}"}}<br/>
+                      data: {"{\"id\":\"cmpl-123\",\"choices\":[{\"text\":\" upon\",\"index\":0}]}"}<br/>
                       <br/>
-                      data: {"{"}""id":"cmpl-123","choices":[{"{"}""text":" a","index":0{"}"}]{"}"}}<br/>
+                      data: {"{\"id\":\"cmpl-123\",\"choices\":[{\"text\":\" a\",\"index\":0}]}"}<br/>
                       <br/>
                       data: [DONE]
                     </code>

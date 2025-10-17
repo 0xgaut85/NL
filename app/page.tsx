@@ -367,7 +367,7 @@ export default function Home() {
               >
                 Join forward-thinking developers and enterprises building with AI
                 <br className="hidden md:block" />
-                that doesn't compromise on freedom or reliability.
+                that doesn&apos;t compromise on freedom or reliability.
               </motion.p>
               <div className="flex gap-3 md:gap-4 justify-center flex-wrap">
                 <motion.button
