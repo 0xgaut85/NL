@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { motion } from 'framer-motion';
+import type { ShaderMaterial } from "three";
 
 const BRAND = {
   white: "#ffffff",
@@ -14,7 +15,7 @@ const BRAND = {
 };
 
 const AuroraMaterial = () => {
-  const matRef = useRef();
+  const matRef = useRef<ShaderMaterial>(null);
 
   const toRGB = (hex: string) => {
     const c = new THREE.Color(hex);

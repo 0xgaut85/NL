@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import Image from "next/image";
+import type { ShaderMaterial } from "three";
 
 /**
  * A UNIQUE, BRANDED HERO BACKGROUND (not logo-based)
@@ -26,7 +27,7 @@ const BRAND = {
 
 // -------- Aurora Shader (fragment + vertex) --------
 const AuroraMaterial = () => {
-  const matRef = useRef();
+  const matRef = useRef<ShaderMaterial>(null);
 
   // Convert hex to linear RGB vec3
   const toRGB = (hex: string) => {

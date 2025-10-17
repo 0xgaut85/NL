@@ -222,11 +222,11 @@ export default function DocsPage() {
                     <code>
                       curl http://localhost:8080/v1/completions \<br/>
                       {'  '}-H &quot;Content-Type: application/json&quot; \<br/>
-                      {'  '}-d &apos;{"{"}}&apos;<br/>
+                      {'  '}-d &apos;{'{'}<br/>
                       {'    '}&quot;prompt&quot;: &quot;Write a Python function to calculate fibonacci numbers&quot;,<br/>
                       {'    '}&quot;max_tokens&quot;: 512,<br/>
                       {'    '}&quot;temperature&quot;: 0.7<br/>
-                      {'  '}{"}"}}&apos;
+                      {'  '}{'}'}&apos;
                     </code>
                   </div>
                 </div>
