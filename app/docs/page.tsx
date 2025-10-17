@@ -221,12 +221,12 @@ export default function DocsPage() {
                   <div className="bg-black p-4 rounded font-mono text-sm text-[#7fff00] overflow-x-auto">
                     <code>
                       curl http://localhost:8080/v1/completions \<br/>
-                      {'  '}-H "Content-Type: application/json" \<br/>
-                      {'  '}-d '{"{"}'<br/>
-                      {'    '}"prompt": "Write a Python function to calculate fibonacci numbers",<br/>
-                      {'    '}"max_tokens": 512,<br/>
-                      {'    '}"temperature": 0.7<br/>
-                      {'  '}{"}"}'
+                      {'  '}-H &quot;Content-Type: application/json&quot; \<br/>
+                      {'  '}-d &apos;{"{"}}&apos;<br/>
+                      {'    '}&quot;prompt&quot;: &quot;Write a Python function to calculate fibonacci numbers&quot;,<br/>
+                      {'    '}&quot;max_tokens&quot;: 512,<br/>
+                      {'    '}&quot;temperature&quot;: 0.7<br/>
+                      {'  '}{"}"}}&apos;
                     </code>
                   </div>
                 </div>
