@@ -1599,7 +1599,7 @@ export default function DocsPage() {
                       </p>
                       <div className="bg-white p-3 rounded text-xs font-mono">
                         <code>
-                          require(amountOut >= amountOutMin, "Slippage exceeded");
+                          {`require(amountOut >= amountOutMin, "Slippage exceeded");`}
                         </code>
                       </div>
                     </div>

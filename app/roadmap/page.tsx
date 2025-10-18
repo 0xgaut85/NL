@@ -346,21 +346,22 @@ export default function RoadmapPage() {
             const startProgress = qIndex / roadmapData.length;
             const endProgress = (qIndex + 1) / roadmapData.length;
             
+            // Pre-calculate transforms outside the render
+            const opacity = useTransform(
+              scrollYProgress,
+              [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
+              [0, 1, 1, 0.3]
+            );
+            const scale = useTransform(
+              scrollYProgress,
+              [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
+              [0.8, 1, 1, 0.95]
+            );
+            
             return (
               <motion.div
                 key={quarter.quarter}
-                style={{
-                  opacity: useTransform(
-                    scrollYProgress,
-                    [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
-                    [0, 1, 1, 0.3]
-                  ),
-                  scale: useTransform(
-                    scrollYProgress,
-                    [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
-                    [0.8, 1, 1, 0.95]
-                  )
-                }}
+                style={{ opacity, scale }}
                 className="min-h-[80vh] flex flex-col justify-center mb-32 md:mb-48"
               >
                 {/* Quarter Header */}
@@ -401,6 +402,18 @@ export default function RoadmapPage() {
                     // Les 2 premiers items (index 0 et 1) sont les plus importants
                     const isKeyItem = index === 0 || index === 1;
                     
+                    // Pre-calculate scale transform for key items
+                    const itemScale = isKeyItem ? useTransform(
+                      scrollYProgress,
+                      [
+                        startProgress + (index * 0.05),
+                        startProgress + 0.15 + (index * 0.05),
+                        startProgress + 0.35 + (index * 0.05),
+                        startProgress + 0.5 + (index * 0.05)
+                      ],
+                      [1, 1.15, 1.15, 1]
+                    ) : undefined;
+                    
                     return (
                       <motion.div
                         key={item.id}
@@ -412,18 +425,7 @@ export default function RoadmapPage() {
                           ease: [0.22, 1, 0.36, 1]
                         }}
                         viewport={{ once: false, margin: "-15%" }}
-                        style={isKeyItem ? {
-                          scale: useTransform(
-                            scrollYProgress,
-                            [
-                              startProgress + (index * 0.05),
-                              startProgress + 0.15 + (index * 0.05),
-                              startProgress + 0.35 + (index * 0.05),
-                              startProgress + 0.5 + (index * 0.05)
-                            ],
-                            [1, 1.15, 1.15, 1]
-                          )
-                        } : {}}
+                        style={isKeyItem ? { scale: itemScale } : {}}
                         onHoverStart={() => setHoveredItem(item.id)}
                         onHoverEnd={() => setHoveredItem(null)}
                         className={`group ${isKeyItem ? 'relative z-10' : ''}`}
