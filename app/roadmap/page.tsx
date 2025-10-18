@@ -1,9 +1,209 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useRef } from 'react';
+
+// Separate component for Quarter to properly use hooks
+function QuarterSection({ 
+  quarter, 
+  qIndex, 
+  totalQuarters,
+  scrollYProgress, 
+  hoveredItem, 
+  setHoveredItem 
+}: { 
+  quarter: any; 
+  qIndex: number; 
+  totalQuarters: number;
+  scrollYProgress: MotionValue<number>; 
+  hoveredItem: string | null; 
+  setHoveredItem: (id: string | null) => void;
+}) {
+  const startProgress = qIndex / totalQuarters;
+  const endProgress = (qIndex + 1) / totalQuarters;
+  
+  // Pre-calculate transforms at component level (not in callback)
+  const opacity = useTransform(
+    scrollYProgress,
+    [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
+    [0, 1, 1, 0.3]
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
+    [0.8, 1, 1, 0.95]
+  );
+
+  return (
+    <motion.div
+      style={{ opacity, scale }}
+      className="min-h-[80vh] flex flex-col justify-center mb-32 md:mb-48"
+    >
+      {/* Quarter Header */}
+      <motion.div 
+        className="mb-16 md:mb-24"
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: false, margin: "-10%" }}
+      >
+        <div className="flex items-center gap-6 md:gap-8 mb-8">
+          <h2 className="text-7xl md:text-9xl lg:text-[12rem] font-bold font-mono bracket-text leading-none">
+            {quarter.quarter}
+          </h2>
+          <motion.div 
+            className="flex-1 h-px bg-black/5"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            viewport={{ once: false, margin: "-10%" }}
+            style={{ transformOrigin: "left" }}
+          ></motion.div>
+        </div>
+        <motion.p 
+          className="text-2xl md:text-3xl lg:text-4xl text-black/30 font-mono uppercase tracking-wider"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          viewport={{ once: false, margin: "-10%" }}
+        >
+          {quarter.phase}
+        </motion.p>
+      </motion.div>
+
+      {/* Items Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+        {quarter.items.map((item: any, index: number) => {
+          const isKeyItem = index === 0 || index === 1;
+          
+          return (
+            <RoadmapItem 
+              key={item.id}
+              item={item}
+              index={index}
+              isKeyItem={isKeyItem}
+              startProgress={startProgress}
+              scrollYProgress={scrollYProgress}
+              hoveredItem={hoveredItem}
+              setHoveredItem={setHoveredItem}
+            />
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
+// Separate component for items with zoom effect
+function RoadmapItem({
+  item,
+  index,
+  isKeyItem,
+  startProgress,
+  scrollYProgress,
+  hoveredItem,
+  setHoveredItem
+}: {
+  item: any;
+  index: number;
+  isKeyItem: boolean;
+  startProgress: number;
+  scrollYProgress: MotionValue<number>;
+  hoveredItem: string | null;
+  setHoveredItem: (id: string | null) => void;
+}) {
+  // Pre-calculate scale transform for key items at component level
+  const itemScale = isKeyItem ? useTransform(
+    scrollYProgress,
+    [
+      startProgress + (index * 0.05),
+      startProgress + 0.15 + (index * 0.05),
+      startProgress + 0.35 + (index * 0.05),
+      startProgress + 0.5 + (index * 0.05)
+    ],
+    [1, 1.15, 1.15, 1]
+  ) : undefined;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.7,
+        delay: index * 0.15,
+        ease: [0.22, 1, 0.36, 1]
+      }}
+      viewport={{ once: false, margin: "-15%" }}
+      style={isKeyItem ? { scale: itemScale } : {}}
+      onHoverStart={() => setHoveredItem(item.id)}
+      onHoverEnd={() => setHoveredItem(null)}
+      className={`group ${isKeyItem ? 'relative z-10' : ''}`}
+    >
+      <div className="relative">
+        {/* Hover indicator line */}
+        <motion.div 
+          className={`absolute left-0 top-0 bottom-0 ${isKeyItem ? 'w-1.5' : 'w-1'} bg-[#2d5a3d]`}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: hoveredItem === item.id ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformOrigin: "top" }}
+        ></motion.div>
+        
+        <div className={`${isKeyItem ? 'pl-12' : 'pl-10'} py-4`}>
+          {/* Status & Date */}
+          <motion.div 
+            className="flex items-center justify-between mb-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: index * 0.15 + 0.2 }}
+            viewport={{ once: false, margin: "-15%" }}
+          >
+            <span className={`${isKeyItem ? 'text-base' : 'text-sm'} font-mono text-black/30 uppercase tracking-widest`}>
+              {item.date}
+            </span>
+            <motion.span 
+              className={`text-xs font-mono ${isKeyItem ? 'px-5 py-2.5' : 'px-4 py-2'} transition-colors ${
+                item.status === 'In Progress' ? 'bg-[#2d5a3d] text-white' :
+                item.status === 'Active' ? 'bg-[#7fff00] text-black' :
+                item.status === 'Testing' ? 'bg-[#b8d1b3] text-black' :
+                item.status === 'Development' ? 'bg-black/5 text-black/60 border border-black/10' :
+                'bg-black/5 text-black/40'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              {item.status}
+            </motion.span>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h3 
+            className={`${isKeyItem ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-3xl md:text-4xl lg:text-5xl'} font-bold font-mono mb-6 group-hover:text-[#2d5a3d] transition-colors leading-tight`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.15 + 0.3 }}
+            viewport={{ once: false, margin: "-15%" }}
+          >
+            {item.title}
+          </motion.h3>
+
+          {/* Description */}
+          <motion.p 
+            className={`${isKeyItem ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'} text-black/50 leading-relaxed`}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: index * 0.15 + 0.4 }}
+            viewport={{ once: false, margin: "-15%" }}
+          >
+            {item.description}
+          </motion.p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function RoadmapPage() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -342,161 +542,17 @@ export default function RoadmapPage() {
       {/* Timeline */}
       <div ref={containerRef} className="flex-1 py-16 md:py-24 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
-          {roadmapData.map((quarter, qIndex) => {
-            const startProgress = qIndex / roadmapData.length;
-            const endProgress = (qIndex + 1) / roadmapData.length;
-            
-            // Pre-calculate transforms outside the render
-            const opacity = useTransform(
-              scrollYProgress,
-              [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
-              [0, 1, 1, 0.3]
-            );
-            const scale = useTransform(
-              scrollYProgress,
-              [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1],
-              [0.8, 1, 1, 0.95]
-            );
-            
-            return (
-              <motion.div
-                key={quarter.quarter}
-                style={{ opacity, scale }}
-                className="min-h-[80vh] flex flex-col justify-center mb-32 md:mb-48"
-              >
-                {/* Quarter Header */}
-                <motion.div 
-                  className="mb-16 md:mb-24"
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: false, margin: "-10%" }}
-                >
-                  <div className="flex items-center gap-6 md:gap-8 mb-8">
-                    <h2 className="text-7xl md:text-9xl lg:text-[12rem] font-bold font-mono bracket-text leading-none">
-                      {quarter.quarter}
-                    </h2>
-                    <motion.div 
-                      className="flex-1 h-px bg-black/5"
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-                      viewport={{ once: false, margin: "-10%" }}
-                      style={{ transformOrigin: "left" }}
-                    ></motion.div>
-                  </div>
-                  <motion.p 
-                    className="text-2xl md:text-3xl lg:text-4xl text-black/30 font-mono uppercase tracking-wider"
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-                    viewport={{ once: false, margin: "-10%" }}
-                  >
-                    {quarter.phase}
-                  </motion.p>
-                </motion.div>
-
-                {/* Items Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
-                  {quarter.items.map((item, index) => {
-                    // Les 2 premiers items (index 0 et 1) sont les plus importants
-                    const isKeyItem = index === 0 || index === 1;
-                    
-                    // Pre-calculate scale transform for key items
-                    const itemScale = isKeyItem ? useTransform(
-                      scrollYProgress,
-                      [
-                        startProgress + (index * 0.05),
-                        startProgress + 0.15 + (index * 0.05),
-                        startProgress + 0.35 + (index * 0.05),
-                        startProgress + 0.5 + (index * 0.05)
-                      ],
-                      [1, 1.15, 1.15, 1]
-                    ) : undefined;
-                    
-                    return (
-                      <motion.div
-                        key={item.id}
-                        initial={{ opacity: 0, y: 80 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ 
-                          duration: 0.7,
-                          delay: index * 0.15,
-                          ease: [0.22, 1, 0.36, 1]
-                        }}
-                        viewport={{ once: false, margin: "-15%" }}
-                        style={isKeyItem ? { scale: itemScale } : {}}
-                        onHoverStart={() => setHoveredItem(item.id)}
-                        onHoverEnd={() => setHoveredItem(null)}
-                        className={`group ${isKeyItem ? 'relative z-10' : ''}`}
-                      >
-                        <div className="relative">
-                          {/* Hover indicator line */}
-                          <motion.div 
-                            className={`absolute left-0 top-0 bottom-0 ${isKeyItem ? 'w-1.5' : 'w-1'} bg-[#2d5a3d]`}
-                            initial={{ scaleY: 0 }}
-                            animate={{ scaleY: hoveredItem === item.id ? 1 : 0 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            style={{ transformOrigin: "top" }}
-                          ></motion.div>
-                          
-                          <div className={`${isKeyItem ? 'pl-12' : 'pl-10'} py-4`}>
-                            {/* Status & Date */}
-                            <motion.div 
-                              className="flex items-center justify-between mb-6"
-                              initial={{ opacity: 0 }}
-                              whileInView={{ opacity: 1 }}
-                              transition={{ duration: 0.6, delay: index * 0.15 + 0.2 }}
-                              viewport={{ once: false, margin: "-15%" }}
-                            >
-                              <span className={`${isKeyItem ? 'text-base' : 'text-sm'} font-mono text-black/30 uppercase tracking-widest`}>
-                                {item.date}
-                              </span>
-                              <motion.span 
-                                className={`text-xs font-mono ${isKeyItem ? 'px-5 py-2.5' : 'px-4 py-2'} transition-colors ${
-                                  item.status === 'In Progress' ? 'bg-[#2d5a3d] text-white' :
-                                  item.status === 'Active' ? 'bg-[#7fff00] text-black' :
-                                  item.status === 'Testing' ? 'bg-[#b8d1b3] text-black' :
-                                  item.status === 'Development' ? 'bg-black/5 text-black/60 border border-black/10' :
-                                  'bg-black/5 text-black/40'
-                                }`}
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ duration: 0.2 }}
-                              >
-                                {item.status}
-                              </motion.span>
-                            </motion.div>
-
-                            {/* Title */}
-                            <motion.h3 
-                              className={`${isKeyItem ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-3xl md:text-4xl lg:text-5xl'} font-bold font-mono mb-6 group-hover:text-[#2d5a3d] transition-colors leading-tight`}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.6, delay: index * 0.15 + 0.3 }}
-                              viewport={{ once: false, margin: "-15%" }}
-                            >
-                              {item.title}
-                            </motion.h3>
-
-                            {/* Description */}
-                            <motion.p 
-                              className={`${isKeyItem ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'} text-black/50 leading-relaxed`}
-                              initial={{ opacity: 0 }}
-                              whileInView={{ opacity: 1 }}
-                              transition={{ duration: 0.6, delay: index * 0.15 + 0.4 }}
-                              viewport={{ once: false, margin: "-15%" }}
-                            >
-                              {item.description}
-                            </motion.p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            );
-          })}
+          {roadmapData.map((quarter, qIndex) => (
+            <QuarterSection
+              key={quarter.quarter}
+              quarter={quarter}
+              qIndex={qIndex}
+              totalQuarters={roadmapData.length}
+              scrollYProgress={scrollYProgress}
+              hoveredItem={hoveredItem}
+              setHoveredItem={setHoveredItem}
+            />
+          ))}
         </div>
       </div>
 

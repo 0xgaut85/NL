@@ -15,13 +15,15 @@ const nextConfig = {
         fs: false,
         path: false,
         '@react-native-async-storage/async-storage': false,
+        'pino-pretty': false,
       };
     }
     
-    // Ignore React Native dependencies warnings
+    // Ignore React Native dependencies and optional pino deps warnings
     config.resolve.alias = {
       ...config.resolve.alias,
       '@react-native-async-storage/async-storage': false,
+      'pino-pretty': false,
     };
     
     return config;
