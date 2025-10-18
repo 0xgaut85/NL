@@ -33,10 +33,10 @@ export default function PricingPage() {
           </Link>
           
           <nav className="hidden md:flex gap-8 font-mono text-sm">
-            {['About', 'Model', 'Pricing', 'Docs'].map((item, i) => (
+            {['About', 'Model', 'Pricing', 'Roadmap', 'Docs'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Pricing' ? '/pricing' : item === 'Model' ? '/model' : item === 'Docs' ? '/docs' : `/#${item.toLowerCase()}`}
+                href={item === 'About' ? '/' : item === 'Pricing' ? '/pricing' : item === 'Model' ? '/model' : item === 'Roadmap' ? '/roadmap' : item === 'Docs' ? '/docs' : '/'}
                 className={`hover:text-[#7fff00] transition-colors bracket-text ${item === 'Pricing' ? 'text-[#7fff00]' : ''}`}
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -20 }}
@@ -48,13 +48,24 @@ export default function PricingPage() {
             ))}
           </nav>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
-          >
-            Request Beta Access
-          </motion.button>
+          <div className="hidden md:flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
+            >
+              Request Beta Access
+            </motion.button>
+            <Link href="/swap">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#7fff00] text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#2d5a3d] hover:text-white transition-colors whitespace-nowrap"
+              >
+                nolimit Swap
+              </motion.button>
+            </Link>
+          </div>
         </div>
       </motion.header>
 
@@ -203,21 +214,31 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ/Features */}
-        <section className="py-24 md:py-32 lg:py-40 bg-white">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-24 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-16 md:mb-20 text-center px-4 md:px-8"
+              className="mb-16 md:mb-20 text-center px-4 md:px-8 relative"
             >
+              {/* Radar Illustration Behind Title */}
+              <div className="absolute left-1/2 top-1/2 -translate-y-1/2 translate-x-[10%] w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[600px] lg:h-[600px] opacity-100 pointer-events-none -z-10">
+                <Image 
+                  src="/illustration/radar.png"
+                  alt="Privacy Radar"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
               <motion.h2
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2d5a3d] mb-6 font-mono bracket-text"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2d5a3d] mb-6 font-mono bracket-text relative z-10"
               >
                 Why choose no limit?
               </motion.h2>
@@ -226,7 +247,7 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="text-lg md:text-xl text-black/60 max-w-3xl mx-auto"
+                className="text-lg md:text-xl text-black/60 max-w-3xl mx-auto relative z-10"
               >
                 Self-hosting gives you control, privacy, and freedom that cloud solutions can&apos;t match
               </motion.p>
@@ -242,31 +263,31 @@ export default function PricingPage() {
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 {[
-                  {
-                    title: 'Ultimate Privacy',
-                    desc: 'Your data never leaves your infrastructure. Perfect for sensitive applications, medical data, legal work, or classified information.'
-                  },
-                  {
-                    title: 'Zero Latency',
-                    desc: 'Run models on your own hardware for instant responses. No network overhead, no external API calls, no waiting.'
-                  },
-                  {
-                    title: 'Compliance Ready',
-                    desc: 'Meet GDPR, HIPAA, SOC2, and other regulatory requirements by keeping all data on-premise and under your control.'
-                  }
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{ delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="mb-12 last:mb-0"
-                  >
-                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 leading-tight">{item.title}</h3>
-                    <p className="text-black/80 text-sm md:text-base leading-relaxed">{item.desc}</p>
-                  </motion.div>
-                ))}
+                    {
+                      title: 'Ultimate Privacy',
+                      desc: 'Your data never leaves your infrastructure. Perfect for sensitive applications, medical data, legal work, or classified information.'
+                    },
+                    {
+                      title: 'Zero Latency',
+                      desc: 'Run models on your own hardware for instant responses. No network overhead, no external API calls, no waiting.'
+                    },
+                    {
+                      title: 'Compliance Ready',
+                      desc: 'Meet GDPR, HIPAA, SOC2, and other regulatory requirements by keeping all data on-premise and under your control.'
+                    }
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-30px" }}
+                      transition={{ delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="mb-12 last:mb-0"
+                    >
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4 leading-tight">{item.title}</h3>
+                      <p className="text-black/80 text-sm md:text-base leading-relaxed">{item.desc}</p>
+                    </motion.div>
+                  ))}
               </motion.div>
 
               {/* Right Side - White Background */}

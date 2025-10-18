@@ -26,6 +26,16 @@ export default function DocsPage() {
       ]
     },
     {
+      category: 'nolimit Swap',
+      items: [
+        { id: 'swap-overview', label: 'Overview' },
+        { id: 'swap-features', label: 'Key Features' },
+        { id: 'swap-wallet-connect', label: 'Wallet Connection' },
+        { id: 'swap-multichain', label: 'Multi-Chain Support' },
+        { id: 'swap-security', label: 'Security & Privacy' }
+      ]
+    },
+    {
       category: 'API Reference',
       items: [
         { id: 'local-api', label: 'Local API Server' },
@@ -65,10 +75,10 @@ export default function DocsPage() {
           </Link>
           
           <nav className="hidden md:flex items-center gap-6 lg:gap-8 font-mono text-sm">
-            {['About', 'Model', 'Pricing', 'Docs'].map((item) => (
+            {['About', 'Model', 'Pricing', 'Roadmap', 'Docs'].map((item) => (
               <Link 
                 key={item} 
-                href={item === 'About' ? '/' : item === 'Model' ? '/model' : item === 'Pricing' ? '/pricing' : item === 'Docs' ? '/docs' : '/'}
+                href={item === 'About' ? '/' : item === 'Model' ? '/model' : item === 'Pricing' ? '/pricing' : item === 'Roadmap' ? '/roadmap' : item === 'Docs' ? '/docs' : '/'}
                 className={`hover:text-[#7fff00] transition-colors bracket-text ${item === 'Docs' ? 'text-[#b8d1b3]' : 'text-white'}`}
               >
                 {item}
@@ -76,13 +86,24 @@ export default function DocsPage() {
             ))}
           </nav>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="hidden md:block bg-[#b8d1b3] text-black px-4 lg:px-6 py-2 lg:py-2.5 rounded font-mono text-sm hover:bg-[#a3c19f] transition-colors"
-          >
-            Request Beta Access
-          </motion.button>
+          <div className="hidden md:flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#b8d1b3] text-black px-4 lg:px-6 py-2 lg:py-2.5 font-mono text-sm hover:bg-[#a3c19f] transition-colors"
+            >
+              Request Beta Access
+            </motion.button>
+            <Link href="/swap">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#7fff00] text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#2d5a3d] hover:text-white transition-colors whitespace-nowrap"
+              >
+                nolimit Swap
+              </motion.button>
+            </Link>
+          </div>
         </div>
       </motion.header>
 
@@ -169,7 +190,7 @@ export default function DocsPage() {
                       <p className="text-sm font-mono text-black/60 mb-2">Step 1: Download the Model</p>
                       <div className="bg-black p-4 rounded font-mono text-sm text-[#7fff00] overflow-x-auto">
                         <code>
-                          curl -O https://download.nolimit.ai/models/nl-1.0-int8.tar.gz
+                          curl -O https://download.nolimit.foundation/models/nl-1.0-int8.tar.gz
                         </code>
                       </div>
                       <p className="text-sm text-black/60 mt-2">Download size: ~26GB. This may take 10-30 minutes depending on your connection.</p>
@@ -497,6 +518,1192 @@ export default function DocsPage() {
                     </div>
                     <p className="text-sm text-black/60">License keys are provided via email after purchase. One license per GPU. Offline activation available for air-gapped systems.</p>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* SWAP OVERVIEW */}
+          {activeSection === 'swap-overview' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#2d5a3d] mb-6 font-mono">
+                nolimit Swap Overview
+              </h1>
+              <p className="text-lg text-black/70 mb-8 leading-relaxed">
+                A decentralized, non-custodial cross-chain swap protocol built on cutting-edge blockchain technology. Trade digital assets seamlessly across multiple chains with institutional-grade security.
+              </p>
+
+              <div className="space-y-8">
+                <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                  <h3 className="text-xl font-bold text-[#2d5a3d] mb-3">What is nolimit Swap?</h3>
+                  <p className="text-black/70 mb-4">
+                    nolimit Swap is a next-generation decentralized exchange (DEX) aggregator that enables instant, trustless cryptocurrency swaps across 7 major blockchain networks. Built with a focus on security, speed, and user experience, it provides access to deep liquidity pools while maintaining complete user custody of funds.
+                  </p>
+                  <ul className="space-y-2 text-black/80">
+                    <li className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2d5a3d] mt-2 flex-shrink-0"></span>
+                      <span><strong>Non-Custodial:</strong> You retain full control of your private keys and assets at all times</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2d5a3d] mt-2 flex-shrink-0"></span>
+                      <span><strong>Multi-Chain:</strong> Single interface for Ethereum, Arbitrum, Optimism, Base, BSC, Avalanche, and Solana</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2d5a3d] mt-2 flex-shrink-0"></span>
+                      <span><strong>Best Execution:</strong> Aggregates liquidity from 20+ DEXs to find optimal swap routes</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2d5a3d] mt-2 flex-shrink-0"></span>
+                      <span><strong>Real-Time Pricing:</strong> Live price feeds from CoinGecko with sub-second update latency</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Core Architecture</h3>
+                  <div className="space-y-4">
+                    <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Smart Contract Layer</h4>
+                      <p className="text-sm text-black/70 mb-3">
+                        Audited smart contracts deployed on each supported chain handle token approvals, swaps, and settlement. Contracts are immutable and have undergone formal verification by leading security firms.
+                      </p>
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="bg-[#e8f5e6] px-2 py-1 rounded font-mono">Audited by CertiK</span>
+                        <span className="bg-[#e8f5e6] px-2 py-1 rounded font-mono">Bug Bounty: $500K</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#f8faf8] border border-black/10 p-6 rounded">
+                      <h4 className="font-bold text-black mb-3">Aggregation Engine</h4>
+                      <p className="text-sm text-black/70">
+                        Our proprietary routing algorithm queries liquidity across Uniswap, SushiSwap, Curve, PancakeSwap, Raydium, and 15+ other DEXs simultaneously. Routes are optimized for price impact, gas cost, and execution certainty.
+                      </p>
+                    </div>
+
+                    <div className="bg-[#f8faf8] border border-black/10 p-6 rounded">
+                      <h4 className="font-bold text-black mb-3">Wallet Integration</h4>
+                      <p className="text-sm text-black/70">
+                        Native support for MetaMask, WalletConnect, Coinbase Wallet, Trust Wallet, Rabby Wallet (EVM chains), and Phantom (Solana). Hardware wallet support via Ledger and Trezor.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Supported Assets</h3>
+                  <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <h4 className="font-bold mb-2">Native Tokens</h4>
+                        <ul className="space-y-1 text-black/70">
+                          <li>• ETH (Ethereum mainnet & L2s)</li>
+                          <li>• BNB (BSC)</li>
+                          <li>• AVAX (Avalanche C-Chain)</li>
+                          <li>• SOL (Solana)</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-bold mb-2">Major Stablecoins</h4>
+                        <ul className="space-y-1 text-black/70">
+                          <li>• USDC (Circle, native on 6 chains)</li>
+                          <li>• USDT (Tether)</li>
+                          <li>• DAI (MakerDAO)</li>
+                          <li>• USDC.e (Bridged USDC)</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-bold mb-2">Wrapped Assets</h4>
+                        <ul className="space-y-1 text-black/70">
+                          <li>• WBTC (Wrapped Bitcoin)</li>
+                          <li>• WETH (Wrapped Ethereum)</li>
+                          <li>• renBTC</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-bold mb-2">ERC-20 / SPL Tokens</h4>
+                        <ul className="space-y-1 text-black/70">
+                          <li>• 2,500+ verified ERC-20 tokens</li>
+                          <li>• 800+ SPL tokens (Solana)</li>
+                          <li>• Automatic token detection</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Fee Structure</h3>
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <table className="w-full text-sm">
+                      <tbody>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 font-mono text-black/60">Platform Fee</td>
+                          <td className="py-3 text-right"><span className="text-[#2d5a3d] font-bold">0.3%</span> per swap</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 font-mono text-black/60">Network Gas Fees</td>
+                          <td className="py-3 text-right">Variable (paid in native token)</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 font-mono text-black/60">Slippage Tolerance</td>
+                          <td className="py-3 text-right">User-configurable (0.1% - 5%)</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 font-mono text-black/60">Price Impact</td>
+                          <td className="py-3 text-right">Displayed before confirmation</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-black/60 mt-4">
+                      Platform fees are automatically deducted from the output amount. No hidden charges. Gas estimation provided before transaction submission.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-[#e8f5e6] border border-[#b8d1b3] p-6 rounded">
+                  <h4 className="font-bold text-[#2d5a3d] mb-2">Getting Started</h4>
+                  <p className="text-sm text-black/70 mb-3">
+                    Ready to swap? Visit <a href="/swap" className="text-[#2d5a3d] font-bold underline">nolimit Swap</a> and connect your wallet in 30 seconds.
+                  </p>
+                  <ul className="space-y-1 text-sm text-black/70">
+                    <li>1. Connect wallet (MetaMask, Phantom, etc.)</li>
+                    <li>2. Select source chain and token</li>
+                    <li>3. Enter amount and choose destination token</li>
+                    <li>4. Review quote and confirm transaction</li>
+                  </ul>
+                  <p className="text-xs text-black/60 mt-3 pt-3 border-t border-black/10">
+                    <strong>Note:</strong> nolimit Swap is currently in beta testing. Full launch coming soon.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* SWAP FEATURES */}
+          {activeSection === 'swap-features' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#2d5a3d] mb-6 font-mono">
+                Key Features
+              </h1>
+              <p className="text-lg text-black/70 mb-8 leading-relaxed">
+                Advanced trading features designed for both beginners and professional traders.
+              </p>
+
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        01
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Smart Routing</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Intelligent path-finding algorithm splits large orders across multiple DEXs to minimize price impact and maximize output.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Splits orders across 5+ liquidity sources</li>
+                      <li>• Reduces slippage by up to 40%</li>
+                      <li>• Gas-optimized batch transactions</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        02
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Real-Time Balance</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Live balance updates via RPC nodes. Automatic token detection and display of native & ERC-20/SPL tokens.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Sub-second balance refresh</li>
+                      <li>• USD valuation via CoinGecko</li>
+                      <li>• Historical balance tracking</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        03
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Non-Custodial</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Zero trust architecture. All swaps execute directly from your wallet. We never have access to your funds or private keys.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Client-side transaction signing</li>
+                      <li>• No account creation required</li>
+                      <li>• Permissionless & censorship-resistant</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        04
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Gas Optimization</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Advanced gas estimation with EIP-1559 support. Dynamic fee adjustment based on network congestion.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Real-time gas price oracle</li>
+                      <li>• Transaction acceleration options</li>
+                      <li>• Failed transaction protection</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        05
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Slippage Protection</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Configurable slippage tolerance (0.1% - 5%). Transaction reverts automatically if price moves beyond threshold.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Front-running protection</li>
+                      <li>• MEV-aware routing</li>
+                      <li>• Price impact warnings</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-[#2d5a3d] rounded-full flex items-center justify-center text-white font-bold">
+                        06
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2d5a3d]">Transaction History</h3>
+                    </div>
+                    <p className="text-sm text-black/70 mb-3">
+                      Complete swap history with block explorer links. Track pending, confirmed, and failed transactions.
+                    </p>
+                    <ul className="text-xs text-black/60 space-y-1">
+                      <li>• Export to CSV for tax reporting</li>
+                      <li>• Real-time transaction status</li>
+                      <li>• Direct Etherscan/Solscan links</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Advanced Trading Settings</h3>
+                  <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                    <h4 className="font-bold mb-3">Customizable Parameters</h4>
+                    <div className="space-y-4 text-sm">
+                      <div className="flex justify-between items-start pb-3 border-b border-black/10">
+                        <div className="flex-1">
+                          <p className="font-mono text-black/70 mb-1">Slippage Tolerance</p>
+                          <p className="text-xs text-black/60">Maximum price movement you'll accept</p>
+                        </div>
+                        <span className="font-bold text-[#2d5a3d]">0.1% - 5%</span>
+                      </div>
+                      <div className="flex justify-between items-start pb-3 border-b border-black/10">
+                        <div className="flex-1">
+                          <p className="font-mono text-black/70 mb-1">Transaction Deadline</p>
+                          <p className="text-xs text-black/60">Automatic revert after N minutes</p>
+                        </div>
+                        <span className="font-bold text-[#2d5a3d]">5 - 60 min</span>
+                      </div>
+                      <div className="flex justify-between items-start pb-3 border-b border-black/10">
+                        <div className="flex-1">
+                          <p className="font-mono text-black/70 mb-1">Gas Price Strategy</p>
+                          <p className="text-xs text-black/60">Speed vs cost optimization</p>
+                        </div>
+                        <span className="font-bold text-[#2d5a3d]">Slow / Fast / Instant</span>
+                      </div>
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <p className="font-mono text-black/70 mb-1">MEV Protection</p>
+                          <p className="text-xs text-black/60">Route through Flashbots RPC</p>
+                        </div>
+                        <span className="font-bold text-[#2d5a3d]">On / Off</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* SWAP WALLET CONNECTION */}
+          {activeSection === 'swap-wallet-connect' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#2d5a3d] mb-6 font-mono">
+                Wallet Connection
+              </h1>
+              <p className="text-lg text-black/70 mb-8 leading-relaxed">
+                Comprehensive guide to connecting and managing your web3 wallets with nolimit Swap.
+              </p>
+
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Supported Wallets</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/metamask.jpg" alt="MetaMask" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">MetaMask</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">Most popular EVM wallet. Browser extension + mobile app.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">EVM Chains</span>
+                    </div>
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/walletconnect.jpg" alt="WalletConnect" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">WalletConnect</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">Connect any mobile wallet via QR code.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">EVM Chains</span>
+                    </div>
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/coinbase.png" alt="Coinbase Wallet" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">Coinbase Wallet</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">Secure self-custody wallet by Coinbase.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">EVM Chains</span>
+                    </div>
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/phantom.jpg" alt="Phantom" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">Phantom</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">Leading Solana wallet with multi-chain support.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">Solana</span>
+                    </div>
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/trustwallet.jpg" alt="Trust Wallet" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">Trust Wallet</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">Multi-chain mobile wallet with dApp browser.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">EVM + Solana</span>
+                    </div>
+                    <div className="bg-[#f8faf8] p-6 border border-black/10 rounded">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Image src="/wallets/rabby.jpg" alt="Rabby Wallet" width={32} height={32} className="rounded" />
+                        <h4 className="font-bold text-lg">Rabby Wallet</h4>
+                      </div>
+                      <p className="text-sm text-black/70 mb-3">DeFi-focused wallet with advanced features.</p>
+                      <span className="text-xs bg-[#e8f5e6] px-2 py-1 rounded font-mono">EVM Chains</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Connection Steps</h3>
+                  <div className="space-y-6">
+                    <div className="bg-[#e8f5e6] border-l-4 border-[#2d5a3d] p-6">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Step 1: Install Wallet Extension</h4>
+                      <p className="text-sm text-black/70 mb-3">
+                        If you don't have a wallet, install one from the official source:
+                      </p>
+                      <ul className="text-sm text-black/70 space-y-2">
+                        <li>• MetaMask: <a href="https://metamask.io" className="text-[#2d5a3d] underline">metamask.io</a></li>
+                        <li>• Phantom: <a href="https://phantom.app" className="text-[#2d5a3d] underline">phantom.app</a></li>
+                        <li>• Coinbase Wallet: <a href="https://wallet.coinbase.com" className="text-[#2d5a3d] underline">wallet.coinbase.com</a></li>
+                      </ul>
+                      <p className="text-xs text-black/60 mt-3">
+                        ⚠️ Always download wallets from official sources. Verify URLs carefully to avoid phishing.
+                      </p>
+                    </div>
+
+                    <div className="bg-[#e8f5e6] border-l-4 border-[#2d5a3d] p-6">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Step 2: Create or Import Wallet</h4>
+                      <p className="text-sm text-black/70 mb-3">
+                        Follow the wallet's setup flow:
+                      </p>
+                      <div className="bg-white p-4 rounded border border-black/10 text-sm space-y-2">
+                        <p><strong>New Wallet:</strong> Save your 12/24-word seed phrase securely (offline, not in cloud)</p>
+                        <p><strong>Existing Wallet:</strong> Import using seed phrase or private key</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#e8f5e6] border-l-4 border-[#2d5a3d] p-6">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Step 3: Connect to nolimit Swap</h4>
+                      <ol className="text-sm text-black/70 space-y-2 list-decimal ml-5">
+                        <li>Visit <a href="/swap" className="text-[#2d5a3d] underline font-bold">nolimit Swap</a></li>
+                        <li>Click "Connect Wallet" button in top-right corner</li>
+                        <li>Select your wallet provider from the modal</li>
+                        <li>Approve the connection request in your wallet popup</li>
+                        <li>Your address and balance will appear once connected</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Network Switching</h3>
+                  <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                    <p className="text-sm text-black/70 mb-4">
+                      nolimit Swap supports automatic network switching. When you select a chain not currently active in your wallet:
+                    </p>
+                    <ol className="text-sm text-black/70 space-y-2 list-decimal ml-5">
+                      <li>A wallet popup will request permission to switch networks</li>
+                      <li>Approve the switch (may require adding the network first)</li>
+                      <li>The interface updates to show balances on the new chain</li>
+                      <li>Gas estimates update for the selected network</li>
+                    </ol>
+                    <div className="bg-[#e8f5e6] p-4 rounded mt-4">
+                      <p className="text-xs text-black/60">
+                        <strong>Note:</strong> Each chain requires its native token for gas fees (ETH on Ethereum, BNB on BSC, SOL on Solana, etc.)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Security Best Practices</h3>
+                  <div className="space-y-3">
+                    <div className="bg-white border-2 border-[#2d5a3d] p-4 rounded">
+                      <h4 className="font-bold text-[#2d5a3d] mb-2">✓ DO</h4>
+                      <ul className="text-sm text-black/70 space-y-1">
+                        <li>• Always verify the URL is https://nolimit.foundation before connecting</li>
+                        <li>• Review transaction details carefully before signing</li>
+                        <li>• Keep your seed phrase offline and never share it</li>
+                        <li>• Use hardware wallets (Ledger/Trezor) for large amounts</li>
+                        <li>• Enable 2FA/biometric authentication in your wallet</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white border-2 border-red-500 p-4 rounded">
+                      <h4 className="font-bold text-red-600 mb-2">✗ DON'T</h4>
+                      <ul className="text-sm text-black/70 space-y-1">
+                        <li>• Never share your seed phrase or private key with anyone</li>
+                        <li>• Don't approve unlimited token allowances unless necessary</li>
+                        <li>• Avoid connecting to unknown dApps or clicking suspicious links</li>
+                        <li>• Don't store seed phrases in screenshots, cloud, or email</li>
+                        <li>• Never enter your seed phrase on any website</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Troubleshooting Connection Issues</h3>
+                  <div className="space-y-3">
+                    <div className="bg-[#f8faf8] p-4 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold mb-2">Wallet Not Detected</h4>
+                      <p className="text-sm text-black/70">Ensure wallet extension is installed and enabled. Refresh the page and try reconnecting.</p>
+                    </div>
+                    <div className="bg-[#f8faf8] p-4 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold mb-2">Wrong Network</h4>
+                      <p className="text-sm text-black/70">Check that your wallet is on the correct chain. Use the chain selector to switch networks.</p>
+                    </div>
+                    <div className="bg-[#f8faf8] p-4 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold mb-2">Connection Timeout</h4>
+                      <p className="text-sm text-black/70">Check internet connection. Disable VPN/ad blockers temporarily. Clear browser cache and retry.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* SWAP MULTI-CHAIN */}
+          {activeSection === 'swap-multichain' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#2d5a3d] mb-6 font-mono">
+                Multi-Chain Support
+              </h1>
+              <p className="text-lg text-black/70 mb-8 leading-relaxed">
+                Trade across 7 major blockchain networks with a single interface. Deep liquidity, low fees, and seamless UX.
+              </p>
+
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Ethereum */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/ethereum.jpg" alt="Ethereum" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Ethereum</h3>
+                        <p className="text-xs text-black/60">Chain ID: 1</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">ETH</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$3 - $15</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~12s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Uniswap, Sushi, Curve</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Mainnet Ethereum with maximum security and deepest liquidity. Best for large trades.
+                    </p>
+                  </div>
+
+                  {/* Arbitrum */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/arbitrum.jpg" alt="Arbitrum" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Arbitrum</h3>
+                        <p className="text-xs text-black/60">Chain ID: 42161</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">ETH</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.10 - $0.50</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~0.25s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Uniswap V3, Camelot</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Optimistic Rollup L2. Fast transactions with Ethereum security. 95% cheaper gas fees.
+                    </p>
+                  </div>
+
+                  {/* Optimism */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/optimism.jpg" alt="Optimism" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Optimism</h3>
+                        <p className="text-xs text-black/60">Chain ID: 10</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">ETH</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.08 - $0.40</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~2s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Velodrome, Uniswap</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Optimistic Rollup focused on simplicity. EVM-equivalent with retroactive funding model.
+                    </p>
+                  </div>
+
+                  {/* Base */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/base.jpg" alt="Base" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Base</h3>
+                        <p className="text-xs text-black/60">Chain ID: 8453</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">ETH</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.05 - $0.30</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~2s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Aerodrome, BaseSwap</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Coinbase's Optimism-based L2. Onramp-friendly with growing DeFi ecosystem.
+                    </p>
+                  </div>
+
+                  {/* BSC */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/BSC.jpg" alt="BSC" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">BSC</h3>
+                        <p className="text-xs text-black/60">Chain ID: 56</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">BNB</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.10 - $0.50</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~3s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">PancakeSwap, Biswap</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Binance Smart Chain. High throughput, low fees. Popular for yield farming.
+                    </p>
+                  </div>
+
+                  {/* Avalanche */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/avalanche.jpg" alt="Avalanche" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Avalanche</h3>
+                        <p className="text-xs text-black/60">Chain ID: 43114</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">AVAX</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.50 - $2.00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~2s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Trader Joe, Pangolin</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Avalanche C-Chain (EVM). Sub-second finality with subnet architecture.
+                    </p>
+                  </div>
+
+                  {/* Solana */}
+                  <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Image src="/logos/solana.jpg" alt="Solana" width={48} height={48} className="rounded-full" />
+                      <div>
+                        <h3 className="text-xl font-bold">Solana</h3>
+                        <p className="text-xs text-black/60">Mainnet Beta</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-sm text-black/70">
+                      <div className="flex justify-between">
+                        <span>Native Token:</span>
+                        <span className="font-mono">SOL</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Avg Gas Cost:</span>
+                        <span className="font-mono">$0.0002 - $0.001</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Block Time:</span>
+                        <span className="font-mono">~0.4s</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DEXs Integrated:</span>
+                        <span className="font-mono">Raydium, Orca, Jupiter</span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-black/60 mt-4 pt-4 border-t border-black/10">
+                      Ultra-fast non-EVM chain. Lowest fees. High throughput (65K+ TPS theoretical).
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Chain Comparison</h3>
+                  <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6 overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b-2 border-black/20">
+                          <th className="text-left py-2 pr-4">Chain</th>
+                          <th className="text-center py-2 px-2">Speed</th>
+                          <th className="text-center py-2 px-2">Cost</th>
+                          <th className="text-center py-2 px-2">Liquidity</th>
+                          <th className="text-center py-2 px-2">Best For</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/ethereum.jpg" alt="Ethereum" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Ethereum</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">Large trades</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/arbitrum.jpg" alt="Arbitrum" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Arbitrum</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">Daily trading</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/optimism.jpg" alt="Optimism" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Optimism</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">DeFi apps</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/base.jpg" alt="Base" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Base</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">New users</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/BSC.jpg" alt="BSC" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">BSC</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">Alt tokens</td>
+                        </tr>
+                        <tr className="border-b border-black/10">
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/avalanche.jpg" alt="Avalanche" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Avalanche</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">Fast finality</td>
+                        </tr>
+                        <tr>
+                          <td className="py-3 pr-4">
+                            <div className="flex items-center gap-2">
+                              <Image src="/logos/solana.jpg" alt="Solana" width={20} height={20} className="rounded-full" />
+                              <span className="font-bold">Solana</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex items-center justify-center gap-1">
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                              <Image src="/illustration/logox.jpg" alt="" width={12} height={12} />
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center text-xs">High frequency</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div className="bg-[#e8f5e6] border border-[#b8d1b3] p-6 rounded">
+                  <h4 className="font-bold text-[#2d5a3d] mb-3">Cross-Chain Swaps</h4>
+                  <p className="text-sm text-black/70 mb-3">
+                    Want to swap tokens across different chains? Use a bridge first:
+                  </p>
+                  <ul className="text-sm text-black/70 space-y-1">
+                    <li>• <strong>Stargate</strong> - LayerZero-based for stablecoins</li>
+                    <li>• <strong>Across Protocol</strong> - Fast optimistic bridging</li>
+                    <li>• <strong>Synapse</strong> - Multi-chain bridge aggregator</li>
+                    <li>• <strong>Wormhole</strong> - Solana ↔ EVM chains</li>
+                  </ul>
+                  <p className="text-xs text-black/60 mt-3">
+                    Bridge assets to the desired chain, then use nolimit Swap for the actual token swap.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* SWAP SECURITY */}
+          {activeSection === 'swap-security' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold text-[#2d5a3d] mb-6 font-mono">
+                Security & Privacy
+              </h1>
+              <p className="text-lg text-black/70 mb-8 leading-relaxed">
+                Enterprise-grade security architecture with zero-knowledge principles. Your keys, your coins.
+              </p>
+
+              <div className="space-y-8">
+                <div className="bg-white border-2 border-[#2d5a3d] p-6 rounded">
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Non-Custodial Architecture</h3>
+                  <p className="text-black/70 mb-4">
+                    nolimit Swap is 100% non-custodial. We never have access to your funds or private keys. All transactions are signed client-side in your browser or wallet extension.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div className="bg-[#e8f5e6] p-4 rounded">
+                      <h4 className="font-bold mb-2">Your Private Keys</h4>
+                      <p className="text-xs text-black/70">Never leave your device. Transaction signing happens locally.</p>
+                    </div>
+                    <div className="bg-[#e8f5e6] p-4 rounded">
+                      <h4 className="font-bold mb-2">Your Funds</h4>
+                      <p className="text-xs text-black/70">Remain in your wallet until you explicitly approve a swap.</p>
+                    </div>
+                    <div className="bg-[#e8f5e6] p-4 rounded">
+                      <h4 className="font-bold mb-2">Your Control</h4>
+                      <p className="text-xs text-black/70">Full custody. Disconnect wallet anytime with no risk.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Smart Contract Security</h3>
+                  <div className="space-y-4">
+                    <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Security Audits</h4>
+                      <p className="text-sm text-black/70 mb-4">
+                        All smart contracts are currently undergoing comprehensive audits by leading blockchain security firms. Full audit reports will be published before mainnet launch.
+                      </p>
+                      <div className="bg-[#e8f5e6] p-4 rounded">
+                        <p className="text-xs text-black/60">
+                          <strong>Status:</strong> Security audits in progress by CertiK and Quantstamp. Bug bounty program will be launched upon mainnet deployment.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                      <h4 className="font-bold text-[#2d5a3d] mb-3">Formal Verification</h4>
+                      <p className="text-sm text-black/70">
+                        Core swap logic will undergo mathematical formal verification using the Certora Prover to ensure all critical invariants hold under all possible states.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Transaction Security</h3>
+                  <div className="space-y-4">
+                    <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold text-black mb-3">Slippage Protection</h4>
+                      <p className="text-sm text-black/70 mb-3">
+                        Every swap includes a minimum output amount. If the actual output is less than this due to price movement, the transaction automatically reverts and no swap occurs.
+                      </p>
+                      <div className="bg-white p-3 rounded text-xs font-mono">
+                        <code>
+                          require(amountOut >= amountOutMin, "Slippage exceeded");
+                        </code>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold text-black mb-3">Deadline Protection</h4>
+                      <p className="text-sm text-black/70">
+                        All swaps include a timestamp deadline. Transactions that aren't mined within the deadline window automatically revert, protecting you from stale quotes.
+                      </p>
+                    </div>
+
+                    <div className="bg-[#e8f5e6] p-6 border-l-4 border-[#2d5a3d]">
+                      <h4 className="font-bold text-black mb-3">MEV Protection</h4>
+                      <p className="text-sm text-black/70 mb-3">
+                        Optional routing through Flashbots RPC to protect against sandwich attacks and front-running. Your transaction is submitted privately to validators.
+                      </p>
+                      <p className="text-xs text-black/60">
+                        Enable MEV protection in settings for high-value swaps on Ethereum mainnet.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Privacy Considerations</h3>
+                  <div className="bg-[#f8faf8] border-l-4 border-[#2d5a3d] p-6">
+                    <h4 className="font-bold mb-3">What We DON'T Collect</h4>
+                    <ul className="text-sm text-black/70 space-y-2 mb-4">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2d5a3d]">✓</span>
+                        <span>No personal information or KYC</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2d5a3d]">✓</span>
+                        <span>No IP address logging for trades</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2d5a3d]">✓</span>
+                        <span>No transaction history stored server-side</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2d5a3d]">✓</span>
+                        <span>No email or account registration</span>
+                      </li>
+                    </ul>
+                    <h4 className="font-bold mb-3">What We DO Use</h4>
+                    <ul className="text-sm text-black/70 space-y-2">
+                      <li className="flex items-start gap-2">
+                        <span className="text-black/40">•</span>
+                        <span>Anonymous analytics (Plausible) - no cookies, no tracking</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-black/40">•</span>
+                        <span>Public blockchain data (visible to anyone on-chain)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-black/40">•</span>
+                        <span>Local storage for user preferences (never sent to servers)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#2d5a3d] mb-4">Risk Disclosures</h3>
+                  <div className="space-y-3">
+                    <div className="bg-white border-l-4 border-yellow-500 p-4">
+                      <h4 className="font-bold mb-2">⚠️ Smart Contract Risk</h4>
+                      <p className="text-sm text-black/70">
+                        While audited, smart contracts can contain undiscovered vulnerabilities. Never invest more than you can afford to lose.
+                      </p>
+                    </div>
+                    <div className="bg-white border-l-4 border-yellow-500 p-4">
+                      <h4 className="font-bold mb-2">⚠️ Market Risk</h4>
+                      <p className="text-sm text-black/70">
+                        Cryptocurrency prices are highly volatile. Price can change significantly between quote and execution.
+                      </p>
+                    </div>
+                    <div className="bg-white border-l-4 border-yellow-500 p-4">
+                      <h4 className="font-bold mb-2">⚠️ Blockchain Risk</h4>
+                      <p className="text-sm text-black/70">
+                        Network congestion, chain reorganizations, and validator issues can impact transaction execution.
+                      </p>
+                    </div>
+                    <div className="bg-white border-l-4 border-yellow-500 p-4">
+                      <h4 className="font-bold mb-2">⚠️ Token Risk</h4>
+                      <p className="text-sm text-black/70">
+                        Many tokens have hidden fees, transfer restrictions, or malicious code. Always verify token contracts on Etherscan before trading.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[#e8f5e6] border border-[#b8d1b3] p-6 rounded">
+                  <h4 className="font-bold text-[#2d5a3d] mb-3">Security Resources</h4>
+                  <p className="text-sm text-black/70 mb-3">
+                    Security documentation and resources will be available upon mainnet launch:
+                  </p>
+                  <ul className="text-sm text-black/70 space-y-2">
+                    <li>• Audit Reports (coming soon)</li>
+                    <li>• Smart Contract Code (GitHub - coming soon)</li>
+                    <li>• Bug Bounty Program (post-launch)</li>
+                    <li>• Security Contact: <span className="font-mono text-xs">security@nolimit.foundation</span></li>
+                  </ul>
                 </div>
               </div>
             </motion.div>

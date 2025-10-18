@@ -2,6 +2,7 @@
 
 import { motion, useAnimation } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 
@@ -68,10 +69,10 @@ export default function Home() {
           </motion.div>
           
           <nav className="hidden md:flex gap-8 font-mono text-sm">
-            {['About', 'Model', 'Pricing', 'Docs'].map((item, i) => (
+            {['About', 'Model', 'Pricing', 'Roadmap', 'Docs'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Pricing' ? '/pricing' : item === 'Model' ? '/model' : item === 'Docs' ? '/docs' : `#${item.toLowerCase()}`}
+                href={item === 'About' ? '/' : item === 'Pricing' ? '/pricing' : item === 'Model' ? '/model' : item === 'Roadmap' ? '/roadmap' : item === 'Docs' ? '/docs' : '/'}
                 className="hover:text-[#7fff00] transition-colors bracket-text"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -20 }}
@@ -83,13 +84,24 @@ export default function Home() {
             ))}
           </nav>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
-          >
-            Request Beta Access
-          </motion.button>
+          <div className="hidden md:flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
+            >
+              Request Beta Access
+            </motion.button>
+            <Link href="/swap">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#7fff00] text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#2d5a3d] hover:text-white transition-colors whitespace-nowrap"
+              >
+                nolimit Swap
+              </motion.button>
+            </Link>
+          </div>
         </div>
       </motion.header>
 

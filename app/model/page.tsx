@@ -35,10 +35,10 @@ export default function ModelPage() {
           </Link>
           
           <nav className="hidden md:flex gap-8 font-mono text-sm text-white">
-            {["About", "Model", "Pricing", "Docs"].map((item, i) => (
+            {["About", "Model", "Pricing", "Roadmap", "Docs"].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === "Pricing" ? "/pricing" : item === "Model" ? "/model" : item === "Docs" ? "/docs" : `/#${item.toLowerCase()}`}
+                href={item === "About" ? "/" : item === "Pricing" ? "/pricing" : item === "Model" ? "/model" : item === "Roadmap" ? "/roadmap" : item === "Docs" ? "/docs" : "/"}
                 className={`hover:text-[#7fff00] transition-colors bracket-text ${item === "Model" ? "text-[#7fff00]" : ""}`}
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -20 }}
@@ -65,13 +65,24 @@ export default function ModelPage() {
             </svg>
           </button>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="hidden md:block bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
-          >
-            Request Beta Access
-          </motion.button>
+          <div className="hidden md:flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#7fff00] transition-colors whitespace-nowrap"
+            >
+              Request Beta Access
+            </motion.button>
+            <Link href="/swap">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#7fff00] text-black px-4 py-2 md:px-6 font-mono text-xs md:text-sm font-bold hover:bg-[#2d5a3d] hover:text-white transition-colors whitespace-nowrap"
+              >
+                nolimit Swap
+              </motion.button>
+            </Link>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -86,7 +97,7 @@ export default function ModelPage() {
               {["About", "Model", "Pricing", "Docs"].map((item) => (
                 <a
                   key={item}
-                  href={item === "Pricing" ? "/pricing" : item === "Model" ? "/model" : item === "Docs" ? "/docs" : `/#${item.toLowerCase()}`}
+                  href={item === "About" ? "/" : item === "Pricing" ? "/pricing" : item === "Model" ? "/model" : item === "Roadmap" ? "/roadmap" : item === "Docs" ? "/docs" : "/"}
                   className={`hover:text-[#7fff00] transition-colors bracket-text ${item === "Model" ? "text-[#7fff00]" : ""}`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -96,6 +107,11 @@ export default function ModelPage() {
               <button className="bg-white text-black px-4 py-2 font-mono text-xs font-bold hover:bg-[#7fff00] transition-colors w-full text-left">
                 Request Beta Access
               </button>
+              <Link href="/swap">
+                <button className="bg-[#7fff00] text-black px-4 py-2 font-mono text-xs font-bold hover:bg-[#2d5a3d] hover:text-white transition-colors w-full text-left">
+                  nolimit Swap
+                </button>
+              </Link>
             </nav>
           </motion.div>
         )}
@@ -283,7 +299,7 @@ export default function ModelPage() {
                 {
                   title: "Optimization",
                   desc: "AdamW optimizer with β₁=0.9, β₂=0.95. Cosine learning rate schedule from 3e-4 to 3e-5. Weight decay 0.1. Gradient clipping at 1.0. Flash Attention 2 for training efficiency.",
-                  bg: "green",
+                  bg: "white",
                   align: "right"
                 },
                 {
@@ -320,7 +336,7 @@ export default function ModelPage() {
                           {item.title}
                         </motion.h3>
                         <motion.p 
-                          className="text-black/80 text-base md:text-lg leading-relaxed"
+                          className="text-black/80 text-base md:text-lg leading-relaxed relative z-10"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
@@ -345,22 +361,35 @@ export default function ModelPage() {
                     </>
                   ) : (
                     <>
-                      <div className={`hidden lg:flex items-center justify-center p-16 ${item.bg === "green" ? "bg-[#a3c19f]" : "bg-[#f8faf8]"}`}>
+                      <div className={`hidden lg:flex items-center justify-center p-16 ${item.bg === "green" ? "bg-[#a3c19f]" : "bg-[#f8faf8]"} relative overflow-hidden`}>
+                        {/* Hammer Illustration for Optimization */}
+                        {item.title === "Optimization" && (
+                          <div className="absolute inset-0 flex items-center justify-center opacity-50 pointer-events-none scale-125">
+                            <div className="relative w-full h-full">
+                              <Image 
+                                src="/illustration/hammer.png"
+                                alt="Optimization"
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                          </div>
+                        )}
                         <motion.div
                           initial={{ scale: 0.8, opacity: 0 }}
                           whileInView={{ scale: 1, opacity: 1 }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.3, duration: 0.6 }}
-                          className={`w-full h-64 ${item.bg === "green" ? "bg-[#8dad89]" : "bg-[#e8f5e6]"} border-4 ${item.bg === "green" ? "border-[#7a9877]" : "border-[#d0e8cd]"} flex items-center justify-center`}
+                          className={`w-full h-64 ${item.title === "Optimization" ? "bg-transparent" : item.bg === "green" ? "bg-[#8dad89]" : "bg-[#e8f5e6]"} border-4 ${item.bg === "green" ? "border-[#7a9877]" : "border-[#d0e8cd]"} flex items-center justify-center relative z-10`}
                         >
-                          <span className="text-7xl md:text-8xl font-bold text-black/10 font-mono">
+                          <span className={`text-7xl md:text-8xl font-bold font-mono ${item.title === "Optimization" ? "text-black" : "text-black/10"}`}>
                             {String(i + 1).padStart(2, "0")}
                           </span>
                         </motion.div>
                       </div>
-                      <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                      <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center relative overflow-hidden">
                         <motion.h3 
-                          className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight font-mono"
+                          className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight font-mono relative z-10"
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -369,7 +398,7 @@ export default function ModelPage() {
                           {item.title}
                         </motion.h3>
                         <motion.p 
-                          className="text-black/80 text-base md:text-lg leading-relaxed"
+                          className="text-black/80 text-base md:text-lg leading-relaxed relative z-10"
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
                           viewport={{ once: true }}
