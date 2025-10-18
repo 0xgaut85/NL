@@ -114,8 +114,8 @@ function RoadmapItem({
   hoveredItem: string | null;
   setHoveredItem: (id: string | null) => void;
 }) {
-  // Pre-calculate scale transform for key items at component level
-  const itemScale = isKeyItem ? useTransform(
+  // Always call useTransform - hooks must be called unconditionally
+  const itemScale = useTransform(
     scrollYProgress,
     [
       startProgress + (index * 0.05),
@@ -124,7 +124,7 @@ function RoadmapItem({
       startProgress + 0.5 + (index * 0.05)
     ],
     [1, 1.15, 1.15, 1]
-  ) : undefined;
+  );
 
   return (
     <motion.div
