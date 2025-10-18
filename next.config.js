@@ -14,8 +14,16 @@ const nextConfig = {
         ...config.resolve.fallback,
         fs: false,
         path: false,
+        '@react-native-async-storage/async-storage': false,
       };
     }
+    
+    // Ignore React Native dependencies warnings
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@react-native-async-storage/async-storage': false,
+    };
+    
     return config;
   },
 }
